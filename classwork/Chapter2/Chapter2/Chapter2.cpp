@@ -15,4 +15,31 @@ int main()
     std::string name;
     name = "Your Name";
     std::cout << "Hello World\n" << " " << "Your Name" << name;
+    
+    int age;
+    age = 20;
+    std::cout << "you are " << age << " years old";
+
+        int length, width;
+
+
+    length = 10;
+        width = 20;
+
+        int area;
+        area = length * width;
+
+        std::cout << "Area of rectangle is" << area << std::endl;
+
+        double pi;
+        pi = 3.14159;
+
+            char letterGrade;
+        letterGrade = 'A';
+
+        bool isPassing;
+        isPassing = true;
+
+        length = width = 100;
+        
 }
