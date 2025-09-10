@@ -6,7 +6,7 @@
 */
 
 #include <iostream>
-
+#include <string>
 int main()
 {
     //std::cout << "Hello World\n" << " " << "Your Name" << std::endl;
@@ -39,7 +39,35 @@ int main()
 
         bool isPassing;
         isPassing = true;
-
+        area = length * width;
         length = width = 100;
+        length = length + 10;
+        width = width - 20;
+        int radius = 15;
+        double result = 10 / 3;
+        double remainder = 10 % 3;
+
+        int negativeLength = -length;
+
+        {
+            int newVariable1 = 10;
+            double newVariable2 = 45.7;
+        };
+
+        {
+            char newVariable = 'A';
+        }
+
+        std::string studentName;
+        studentName = "Bob";
+        studentName = studentName + " Wilson";
+
+        const double pi = 3.14159;
+
+        double areaCircle = pi * ( radius * radius);
+
+        const int numberOfLabGrades = 5;
+        const int numberOfLabGrades = 4;
+        
         
 }
