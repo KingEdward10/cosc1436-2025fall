@@ -4,7 +4,7 @@
 #include <iomanip>
 void main()
 {
-    std::cout << "Enter values for x and y : ";
+    std::cout << "Enter values for x and y";
     // get values for x and y
     double x, y;
     std::cin >> x >> y;
