@@ -24,7 +24,7 @@ void main()
 
     std::cout << std::setw(9) << "round " << std::setw(7) << x << std::setw(7) << y << round(x) << std::endl;
     std::cout << std::setw(9) << "trunc " << std::setw(7)  << x << std::setw(7) << y << trunc(x) << std::endl;
-
+    k
 
 
 
