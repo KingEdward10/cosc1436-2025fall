@@ -36,26 +36,48 @@ int main()
 
     std::cout << " Enter the release year : ";
     std::cin >> releaseYear;
-    if (releaseYear < 1900);
+    /*if (releaseYear < 1900);
     {
         std::cout << "Realease year must be at least 1900" << std::endl;
         releaseYear = 1900;
-    };
+    } else if (releaseYear > 2100)
+    {
+        std::cout << "Release year must be between 1900 and 2100" << std::endl;
+        releaseYear = 1900;
 
+    }*/
+     if (releaseYear < 1900 || releaseYear > 2100)
 
         std::cout << "Enter the description : ";
         std::getline(std::cin, description);
 
         std::cout << "Enter the movie rating (1.0-10.0) : ";
         std::cin >> userRating;
+        if (userRating < 1.0 || userRating > 10.0)
+        {
+            std::cout << "Rating must be between 1.0 and 10.0" << std::endl;
+
+        } //else if (userRating > 10.0)
 
         std::cout << "Is this a Classic (Y/N) : ";
         std::string input;
         std::cin >> input;
         if (_strcmpi(input.c_str(), "Y") == 0)
             isClassic = true;
-        if (strcmpi(input.c_str(), "N") == 0)
-            isClassic = false;
+        else
+            if (_strcmpi(input.c_str(), "N") == 0)
+                isClassic = false;
+            else
+                std::cout << "you must enter either Y or N";
+
+
+        // Logical and ---> &&
+        //Logical OR ----> ||
+        // Logical Not ---> !
+        // short-circuit eval **** important ****
+        {
+
+        }
 
 
 
