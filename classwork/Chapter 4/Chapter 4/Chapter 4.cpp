@@ -5,11 +5,11 @@
 
 #include <iostream>
 #include<string> 
+#include <iomanip>
 
-
-int main()
+ //Movie details
+struct Movie
 {
-    //Movie details
     std::string title;              //Required
     std::string description;        //Optional
     int runLength;                  //Required, 0
@@ -17,6 +17,12 @@ int main()
     /*double userRating; */             //Optional, 1.0-10.0
     std::string genres;                  // optional (comma seperated genres)
     bool isClassic;                 //Required, false
+};
+
+int main()
+{
+
+
 
 
     /*std::cout << "Enter Value: ";
@@ -28,7 +34,7 @@ int main()
     std::cout << "postfix (x++) = " << number++ << " , x = " << number << std::endl;
     std::cout << "postfix (x--) = " << number-- << " , x = " << number << std::endl;*/
     bool done = false;
-    while (!done)
+    do //while (!done)
 
     {
         std::cout << "Movie Library" << std::endl;
@@ -44,184 +50,228 @@ int main()
 
 
         switch (choice)
-    
-    {
-        case 'A':
-        case 'a': std::cout << "Add not implemented" << std::endl; done = true; break;
+            while (!done)
+            {
+            case 'A':
+            case 'a': std::cout << "Add not implemented" << std::endl; done = true; break;
 
-        case 'V':
-        case 'v': std::cout << "View not implemented" << std::endl; done = true; break;
+            case 'V':
+            case 'v': std::cout << "View not implemented" << std::endl; done = true; break;
 
-        case 'D':
-        case 'd': std::cout << "Delete not implemented" << std::endl; done = true; break;
+            case 'D':
+            case 'd': std::cout << "Delete not implemented" << std::endl; done = true; break;
 
-        case 'E':
-        case 'e': std::cout << "Edit not implemented" << std::endl; done = true; break;
+            case 'E':
+            case 'e': std::cout << "Edit not implemented" << std::endl; done = true; break;
 
-        case 'Q':
-        case 'q': return 0;
-    }
-
-
-    std::cout << "Enter movie title: ";
-    std::cin.ignore();
-    std::getline(std::cin, title);
-
-   /* bool isEmpty;
-    isEmpty = false;*/
-   while (title == "");
-   {
-
-    
-       std::cout << "Title is required" << std::endl;
-       std::getline(std:: cin,title);
-   }
-
-    std::cout << "Enter the run length (in minutes): ";
-    //runLength = -1;
-    //while (runLength < 0)
-
-    //{
-    //    std::cin >> runLength;
-    //    if (runLength < 0)
-
-    //        std::cout << "ERROR: Run Length must be more than 0" << std::endl;
-
-    //};
-    std::cin >> runLength;
-    while (runLength < 0)
-    {
-        std::cout << "error : run length must be more than 0: ";
-
-        std::cin >> runLength;
+            case 'Q':
+            case 'q': return 0;
+            }
 
 
-    };
+        Movie movie = {0};
 
-    std::cout << " Enter the release year : ";
-    std::cin >> releaseYear;
-    /*if (releaseYear < 1900);
-    {
-        std::cout << "Realease year must be at least 1900" << std::endl;
-        releaseYear = 1900;
-    } else if (releaseYear > 2100)
-    {
-        std::cout << "Release year must be between 1900 and 2100" << std::endl;
-        releaseYear = 1900;
+        std::cout << "Enter movie title: ";
+        std::cin.ignore();
+        std::getline(std::cin, movie.title);
 
-    }*/
-    while (releaseYear < 1900 || releaseYear > 2100)
-    {
-        
-    }
+       /* bool isEmpty;
+        isEmpty = false;*/
+        while (movie.title == "");
+        {
+
+
+            std::cout << "Title is required" << std::endl;
+            std::getline(std::cin, movie.title);
+        }
+
+        std::cout << "Enter the run length (in minutes): ";
+        //runLength = -1;
+        //while (runLength < 0)
+
+        //{
+        //    std::cin >> runLength;
+        //    if (runLength < 0)
+
+        //        std::cout << "ERROR: Run Length must be more than 0" << std::endl;
+
+        //};
+        std::cin >> movie.runLength;
+        do
+        {
+            if (movie.runLength < 0)
+            {
+
+                std::cout << "error : run length must be more than 0: ";
+
+                std::cin >> movie.runLength;
+            }
+            while (movie.runLength < 0);
+        } 
+
+                std::cout << " Enter the release year : ";
+        std::cin >> movie.releaseYear;
+        /*if (releaseYear < 1900);
+        {
+            std::cout << "Realease year must be at least 1900" << std::endl;
+            releaseYear = 1900;
+        } else if (releaseYear > 2100)
+        {
+            std::cout << "Release year must be between 1900 and 2100" << std::endl;
+            releaseYear = 1900;
+
+        }*/
+        while (movie.releaseYear < 1900 || movie.releaseYear > 2100)
+        {
+
+        }
         std::cout << "Enter the description : ";
-        std::getline(std::cin, description);
-        std::cout << "Genres" << genres << std::endl;    
-   /* 
+        std::getline(std::cin, movie.description);
+        std::cout << "Genres" << movie.genres << std::endl;
+   /*
     std::cout << "Enter the movie rating (1.0-10.0) : ";
     std::cin >> userRating;
     if (userRating < 1.0 || userRating > 10.0)
     {
         std::cout << "Rating must be between 1.0 and 10.0" << std::endl;*/
 
-    } //else if (userRating > 10.0)
+     //else if (userRating > 10.0)
 
     //Genres
-    done = false;
-   // int index = 0;
-    for (int index = 0; index < 5; ++index)
-    {
+        done = false;
+       // int index = 0;
+        for (int index = 0; index < 5; ++index)
+        {
 
-        std::cout << "Enter the  genre (or leave blank): ";
-        std::getline(std::cin, genres);
+            std::cout << "Enter the  genre (or leave blank): ";
+            std::getline(std::cin, movie.genres);
 
-        if (genres == "")
-            //index = 5;
-            break;
-        else if (genres == " ")
-            continue;
-        
-            genres = genres + ", " + genres;
+            if (movie.genres == "")
+                //index = 5;
+                break;
+            else if (movie.genres == " ")
+                continue;
+
+            movie.genres = movie.genres + ", " + movie.genres;
 
         //++count
-    }
-    {
-        std::cout << "Is this a Classic (Y/N) : ";
-        std::string input;
-        std::cin >> input;
-
-        // Infinite loop
-       // while (true) {}
-        //for(;;) {}
-
-        
-        while (!done)
-        {
-            if (_strcmpi(input.c_str(), "Y") == 0)
-            {
-                isClassic = true;
-                break;
-            } else if (_strcmpi(input.c_str(), "N") == 0)
-            {
-                isClassic = false;
-                break;
-            } else {
-
-
-                std::cout << "you must enter either Y or N";
-
-                std::cin >> input;
-            }
-            }
         }
-        //switch(E ^char and interagl
-        //needs to be a constant which is why it is limited to char and int
-        // 
+        {
+            std::cout << "Is this a Classic (Y/N) : ";
+            std::string input;
+            std::cin >> input;
 
-        // Logical and ---> &&
-        //Logical OR ----> ||
-        // Logical Not ---> !
-        // short-circuit eval **** important ****
-
-            /*
-            * switch-statnent   (needs a block)
-            * declaring a variable (needs a block)
-            *
-            *
-            *
-            *
-            *
-            * x=x-1
-            * x=x+1 used alot these two variable are <0>
-            * prefix increment --- takes variable and increases it by one ++x
-            * prefix decrement --- takes variable and decreases it by one --x
-            * ___________________________________________________________________
-            * postfix increment --- x++
-            * postfix decrement --- x--
-            *
-            * cout << x++ << x;
-            *         10     11
-            * cout << ++x << x;
-            *        12     12
+            // Infinite loop
+           // while (true) {}
+            //for(;;) {}
 
 
+            while (!done)
+            {
+                if (_strcmpi(input.c_str(), "Y") == 0)
+                {
+                    movie.isClassic = true;
+                    break;
+                } else if (_strcmpi(input.c_str(), "N") == 0)
+                {
+                    movie.isClassic = false;
+                    break;
+                } else {
+
+
+                    std::cout << "you must enter either Y or N";
+
+                    std::cin >> input;
+
+                }
+            }
+            //switch(E ^char and interagl
+            //needs to be a constant which is why it is limited to char and int
+            // 
+
+            // Logical and ---> &&
+            //Logical OR ----> ||
+            // Logical Not ---> !
+            // short-circuit eval **** important ****
+
+                /*
+                * switch-statnent   (needs a block)
+                * declaring a variable (needs a block)
+                *
+                *
+                *
+                *
+                *
+                * x=x-1
+                * x=x+1 used alot these two variable are <0>
+                * prefix increment --- takes variable and increases it by one ++x
+                * prefix decrement --- takes variable and decreases it by one --x
+                * ___________________________________________________________________
+                * postfix increment --- x++
+                * postfix decrement --- x--
+                *
+                * cout << x++ << x;
+                *         10     11
+                * cout << ++x << x;
+                *        12     12
 
 
 
-            */
+
+
+                */
 
 
 
 
 
 
+        }
     }
+}
 
 
+    // NOTES!!!!!!!!!! (useful for lab 2)
+    /*
+    * for ( int index=0; index; ++index)
+    * cout << index++;
+    * if ((index +1) %10)
+    * cout << endl;
+    * 
+    * 
+    * 
+    * do
+    *   "statement"
+    *   while ( E);
+    * 
+    * DEMO NESTED LOOPS 10 x12
+    *   1 2 3 4 5
+    * 1 1 2 3 4 5
+      2 1 2 3 4 5
+      3 1 2 3 4 5
 
+    * 
+    
+    
+    
+    
+    
+    */
 
+    //for (int rows = 1; rows <= 12; ++rows)
+    //{
 
+    //    for (int cols = 0; cols < 10; ++cols)
+    //    {
+    //        if (cols != 0)
+    //            std::cout << std::setw(4) << (rows * cols);
+    //        else
+    //            std::cout << cols;
+    //    }
 
+    //    std::cout << endl;
+
+    //}
 
 
 
@@ -281,4 +331,6 @@ int main()
 //
 //
 //
-//
+    //
+    //;
+    
