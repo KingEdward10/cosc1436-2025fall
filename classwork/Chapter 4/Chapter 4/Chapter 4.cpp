@@ -107,7 +107,7 @@ int main()
                 std::cin >> movie.runLength;
             }
             while (movie.runLength < 0);
-        } 
+        }  
 
                 std::cout << " Enter the release year : ";
         std::cin >> movie.releaseYear;
