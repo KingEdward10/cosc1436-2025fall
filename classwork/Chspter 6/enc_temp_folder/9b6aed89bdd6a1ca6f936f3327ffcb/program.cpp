@@ -39,12 +39,7 @@ void ViewMovie()
         std::cout << movie.description << std::endl;
     std::cout << std::endl; 
 }
-/// <summary>
-/// prompt user and add movie details
-/// </summary>
-/// <param name="done"></param>
 void AddMovie(bool &done)
-
 {
     Movie movie = {0};
 
@@ -140,7 +135,7 @@ int main()
 {
 
 
-    // Display main menu
+
     bool done = false;
     do
 
@@ -161,11 +156,16 @@ int main()
 
         {
             case 'A':
-            case 'a': AddMovie();  break;
+            case 'a': std::cout << "Add not implemented" << std::endl; done = true; break;
 
             case 'V':
-            case 'v': ViewMovie(); break;
+            case 'v': std::cout << "View not implemented" << std::endl; done = true; break;
+            {
+                ViewMovie();
+                done = true;
+                    break;
             
+            }
             case 'D':
             case 'd': std::cout << "Delete not implemented" << std::endl; done = true; break;
 
@@ -173,7 +173,7 @@ int main()
             case 'e': std::cout << "Edit not implemented" << std::endl; done = true; break;
 
             case 'Q':
-            case 'q': done = true;
+            case 'q': return 0;
         }
     } while (!done);
 
