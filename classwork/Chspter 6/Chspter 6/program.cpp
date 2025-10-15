@@ -19,17 +19,70 @@ struct Movie
     std::string genres;                  // optional (comma seperated genres)
     bool isClassic;                 //Required, false
 };
+/// <summary>
+/// Defines possible foreground text colors.
+/// </summary>
+enum class ForeGroundColor
+{
+    Default = 39,
+    Black = 30,
+    Red = 31,
+    Green = 32,
+    Yellow = 33,
+    Blue = 34,
+    Magenta = 35,
+    Cyan = 36,
+    LightGray = 37,
+    DarkGray = 90,
+    LightRed = 91,
+    LightGreen = 92,
+    LightYellow = 93,
+    LightBlue = 94,
+    LightMagenta = 95,
+    LightCyan = 96,
+    White = 97
+};
+void ResetTextColor()
+{
+    std::cout << "\033[0m";
+}
+
+void SetTextColor(int color)
+{
+    std::cout << "\033[" << color << "m";
+}
 
 
-
+/// <summary>
+/// Displays an error message to the standard output.
+/// </summary>
+/// <param name="message">The error message to display.</param>
+void DisplayError( std::string message)
+{
+    SetTextColor(91);
+           std::cout   << "ERROR: "
+            
+              << message
+              << std::endl;
+              ResetTextColor();
+}
+void DisplayWarning(std::string message)
+{
+    SetTextColor(93);
+          std::cout    << "WARNING: "
+             
+              << message
+              << std::endl;
+          ResetTextColor();
+}
 
 /// <summary>
 ///  <summary> view details of a movie.
 /// <remarks> 
 /// </summary>
-void ViewMovie()
+void ViewMovie(Movie movie)
 {
-    Movie movie;
+    //Movie movie;
     std::cout << std::fixed << std::setprecision(1) << std::endl;
     std::cout << movie.title << " (" << movie.releaseYear << ")" << std::endl;
     std::cout << "Run Length " << movie.runLength << " mins" << std::endl;
@@ -43,10 +96,10 @@ void ViewMovie()
 /// prompt user and add movie details
 /// </summary>
 /// <param name="done"></param>
-void AddMovie(bool &done)
+void AddMovie()
 
 {
-    Movie movie = {0};
+    Movie movie; //= {0};
 
     std::cout << "Enter movie title: ";
     std::cin.ignore();
@@ -56,8 +109,7 @@ void AddMovie(bool &done)
     while (movie.title == "");
     {
 
-
-        std::cout << "Title is required" << std::endl;
+        DisplayError("Title is required");
         std::getline(std::cin, movie.title);
     }
 
@@ -71,8 +123,8 @@ void AddMovie(bool &done)
     {
         if (movie.runLength < 0)
         {
-
-            std::cout << "error : run length must be more than 0: ";
+            DisplayError("Run length must be more than 0");
+            
 
             std::cin >> movie.runLength;
         }
@@ -84,14 +136,16 @@ void AddMovie(bool &done)
 
     while (movie.releaseYear < 1900 || movie.releaseYear > 2100);
     {
+        DisplayError("Release year must be between 1900 and 2100");
 
+        std::cin >> movie.releaseYear;
     }
     std::cout << "Enter the description : ";
     std::getline(std::cin, movie.description);
     std::cout << "Genres" << movie.genres << std::endl;
 
     //Genres
-    done = false;
+    bool done = false;
     // int index = 0;
     for (int index = 0; index < 5; ++index)
     {
@@ -129,7 +183,7 @@ void AddMovie(bool &done)
         } else {
 
 
-            std::cout << "you must enter either Y or N";
+            DisplayError( "you must enter either Y or N");
 
             std::cin >> input;
 
@@ -156,6 +210,7 @@ int main()
         char choice;
         std::cin >> choice;
 
+        Movie movie;
 
         switch (choice)
 
@@ -164,29 +219,32 @@ int main()
             case 'a': AddMovie();  break;
 
             case 'V':
-            case 'v': ViewMovie(); break;
+            case 'v': ViewMovie(movie); break;
             
             case 'D':
-            case 'd': std::cout << "Delete not implemented" << std::endl; done = true; break;
+            case 'd': DisplayWarning("Delete not implemented"); done = true; break;
 
             case 'E':
-            case 'e': std::cout << "Edit not implemented" << std::endl; done = true; break;
+            case 'e': DisplayWarning("Edit not implemented"); done = true; break;
 
             case 'Q':
             case 'q': done = true;
+                DisplayError("Invalid choice");
         }
     } while (!done);
 
 
-    AddMovie(done);
+    //AddMovie(done);
    
 
         
-        ViewMovie();
+      //  ViewMovie();
     }
 
 
-
+// parameter KIND (varibale used insed the function)
+// 1.) input / Pass by value
+// 2.) output / Pass by reference
 
   
 
