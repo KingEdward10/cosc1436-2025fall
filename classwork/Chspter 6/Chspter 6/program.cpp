@@ -13,11 +13,11 @@ struct Movie
 {
     std::string title;              //Required
     std::string description;        //Optional
-    int runLength;                  //Required, 0
-    int releaseYear;                //Optional, between 1900-2100
+    int runLength {};                  //Required, 0
+    int releaseYear {};                //Optional, between 1900-2100
     /*double userRating; */             //Optional, 1.0-10.0
     std::string genres;                  // optional (comma seperated genres)
-    bool isClassic;                 //Required, false
+    bool isClassic {};                 //Required, false
 };
 /// <summary>
 /// Defines possible foreground text colors.
@@ -145,10 +145,11 @@ void AddMovie()
     std::cout << "Genres" << movie.genres << std::endl;
 
     //Genres
-    bool done = false;
+   // bool done = false;
     // int index = 0;
     for (int index = 0; index < 5; ++index)
     {
+        std::string genre;
 
         std::cout << "Enter the  genre (or leave blank): ";
         std::getline(std::cin, movie.genres);
@@ -170,7 +171,7 @@ void AddMovie()
 
 
 
-    while (!done)
+    while (true)
     {
         if (_strcmpi(input.c_str(), "Y") == 0)
         {
@@ -220,7 +221,7 @@ int main()
 
             case 'V':
             case 'v': ViewMovie(movie); break;
-            
+
             case 'D':
             case 'd': DisplayWarning("Delete not implemented"); done = true; break;
 
@@ -229,8 +230,9 @@ int main()
 
             case 'Q':
             case 'q': done = true;
-                DisplayError("Invalid choice");
-        }
+
+            default:  DisplayError("Invalid choice");
+        };
     } while (!done);
 
 
