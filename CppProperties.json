@@ -1,4 +1,4 @@
-{
+{kiolll me 
   "configurations": [
     {
       "inheritEnvironments": [
@@ -9,7 +9,7 @@
         "${env.INCLUDE}",
         "${workspaceRoot}\\**"
       ],
-      "defines": [
+      "defines": [l
         "WIN32",
         "_DEBUG",
         "UNICODE",
