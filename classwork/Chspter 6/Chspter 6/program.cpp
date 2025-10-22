@@ -113,6 +113,11 @@ int ReadInt(int minimumValue, int maximumValue)
         DisplayError(" Value is out of range");
     } while (true);
 }
+
+int ReadInt(int minimumValue)
+{
+    return ReadInt(minimumValue, INT_MAX);
+}
 /// <summary>
 ///  <summary> view details of a movie.
 /// <remarks> 
