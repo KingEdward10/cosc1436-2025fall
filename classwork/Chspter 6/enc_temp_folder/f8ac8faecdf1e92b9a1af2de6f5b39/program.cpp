@@ -245,30 +245,20 @@ void EditMovie(Movie& movie)
     DisplayWarning("Not implemented yet");
 }
 
-////int Factorial(int value)
-//{
-//    if (value <= 1)
-//        return 1;
-//
-//    return value * Factorial(value - 1);
-//}
+int Factorial(int value)
+{
+    return value * Factorial(value - 1);
+}
 
 int main()
 {
 
 
     // Display main menu
-    const int MaximumMovies = 100;
-  //  std::cout << Factorial(5) << std::endl;
+
+    std::cout << Factorial(5) << std::endl;
 
     Movie movie;
-
-    Movie movies[MaximumMovies];
-
-
-    //array operator [ ]
-    // A [index]
-    Movie firstElement = movies[0];
 
     bool done = false;
     do
