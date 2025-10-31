@@ -188,8 +188,28 @@ Movie AddMovie()
     return movie;
 }
 
-void DeleteMovie(Movie& movie)
+
+void ViewMovies(Movie movies[], int size)
 {
+    for (int index = 0; index < size; ++index)
+    {
+        if (movies[index].title == "")
+        // Replace this line in ViewMovies:
+        if (movies[index].title == "")
+
+        // With this corrected line:
+        if (movies[index].title == "")
+            return;
+
+        ViewMovie(movies[index]);
+
+    }
+}
+
+void DeleteMovie()
+{
+    Movie movie;
+
     if (!Confirm("Are you sure you want to delete " + movie.title + "?"))
         return;
 
@@ -198,9 +218,26 @@ void DeleteMovie(Movie& movie)
     movie.title = "";
 }
 
-void EditMovie(Movie& movie)
+void EditMovie()
 {
     DisplayWarning("Not implemented yet");
+}
+
+int AddToMovieArray(Movie movies[], int size, Movie movie)
+{
+    for (int index = 0; index < size; ++index)
+    {
+        if (movies [index]. title == "")
+        {
+            movies[index] = movie;
+            return index;
+        }
+
+        DisplayError("Movie array is full");
+        return -1;
+
+
+    }
 }
 
 //Test function overloading
@@ -242,7 +279,65 @@ void Display(short, int)
 //
 //   // Display("hello", 4.56);
 //}
+void ArrayDemo()
+{
+    const int MaxNumbers = 100;
 
+    //Init array using { 0 }
+    int numbers[MaxNumbers] = {0};
+    //int numbers[100];        
+
+    //# of days in each month
+    //int daysInMonth[12] = { 0 };
+    //Approach 1 - correct but not readable
+    /*daysInMonth[0] = daysInMonth[2] = daysInMonth[4] = daysInMonth[6] = daysInMonth[7]
+                   = daysInMonth[9] = daysInMonth[11] = 31;
+    daysInMonth[1] = 28;
+    daysInMonth[3] = daysInMonth[5] = daysInMonth[8] = daysInMonth[10] = 30;*/
+
+    //Approach 2 - init expression
+    // Zero init - each element is set to 0// { 0 }
+    // Full init - each element is assigned a value
+    // Partial init - each element is assigned a value and remaining elements are 0 initialized    
+    //int daysInMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+    // Implicit array sizing
+    int daysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+    //Set each element to its element number (element 1 = 1, element 2 = 2, etc)
+    //Approach 1 for small arrays only
+    numbers[0] = 1;
+    numbers[1] = 2;
+    numbers[2] = 3;
+
+    //Approach 2 for any array
+    int rangeIndex = 0;
+    for (int& number: numbers)
+        number = ++rangeIndex;
+       
+
+    for (int number:numbers)
+        std::cout << number << std::endl;
+
+    //Prefix/postfix and arrays
+    // ++x := x = x + 1; ret x
+    // x++ := temp = x; x = x + 1; ret temp
+    int outIndex = 0;
+    std::cout << ++numbers[outIndex] << std::endl; //Modifies  element print 2
+    std::cout << numbers[++outIndex] << std::endl;// element prints 2
+    std::cout << numbers[outIndex++] << std::endl;// index prints 2
+    std::cout << numbers[outIndex]++ << std::endl;// Modifies index 2
+
+
+
+    //int numbers2[MaxNumbers] = numbers;
+    int nuumbers3[MaxNumbers] = {0};
+    // cant use comparisons with arrays
+    // for loop is the only way to see if arrays are equal
+    // cant cout an array or cin
+
+}
+#pragma endregion
 
 int main()
 {
@@ -252,7 +347,7 @@ int main()
     //Leaving this here to not break anything in the code
     //Display main menu
     const int MaximumMovies = 100;
-    Movie movie;
+   // Movie movie;
     Movie movies[MaximumMovies]; //array of movies (array can be of any type )
 
     bool done = false;
@@ -272,16 +367,16 @@ int main()
         switch (choice)
         {
             case 'A':
-            case 'a': movie = AddMovie(); break;
+            case 'a': AddToMovieArray(movies, MaximumMovies, AddMovie()); break;
 
             case 'V':
-            case 'v': ViewMovie(movie); break;
+            case 'v': ViewMovies(movies, MaximumMovies); break;
 
             case 'D':
-            case 'd': DeleteMovie(movie); break;
+            case 'd': DeleteMovie(); break;
 
             case 'E':
-            case 'e': EditMovie(movie); break;
+            case 'e': EditMovie(); break;
 
             case 'Q':
             case 'q': done = true;
