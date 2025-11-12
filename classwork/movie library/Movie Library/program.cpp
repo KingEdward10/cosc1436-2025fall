@@ -239,6 +239,36 @@ void PointerDemo()
 
     *pInt = 5678;
 
+    float * pFloat = nullptr; 
+    // always make sure pointers are valid before dereferencing them
+   // if (pFloat != nullptr) {
+     //   *pFloat = 123.45;
+    //}
+
+    if (pFloat){
+        *pFloat = 123.45;
+    }
+
+    float localFloat = 123.45;
+
+    pFloat = &localFloat;
+
+
+    float someFloats[10] = {0};
+    pFloat = &someFloats[1]; //Ptr references second element
+
+    //pointer assignemtn must exactly match type
+
+    //dynamic memory 
+   pFloat = new float; //allocates memory on the heap
+   *pFloat = 89.76;
+
+   for (int index = 0; index < 10000; ++index)
+   {
+       pFloat = new float;
+       *pFloat = index;
+   }
+
 
 }
 
