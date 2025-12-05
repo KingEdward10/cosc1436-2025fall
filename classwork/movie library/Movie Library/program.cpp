@@ -1,318 +1,180 @@
-/*
- * Final Version
- * COSC 1436
- */
 #include <iostream>
 #include <string>
+#include <cctype>
 #include <iomanip>
 
-//Movie details
-struct Movie
+void CharDemo()
 {
-    std::string title;          //Required
-    std::string description;    //Optional
-    int runLength;              //Required, 0
-    int releaseYear;            //Optional, but between 1900-2100
-    bool isClassic;             //Required, false
-    std::string genres;         //Optional (comma separated list of genres)
-};
+    //Character sets
+    //  ANSI - 1 byte, char in C++, string for string
+    //  Unicode - 2 bytes, wchar_t in C++, wstring for string
+    char ansiCharacter = 'A';
+    wchar_t unicodeCharacter = 'A';
 
-/// <summary>Defines possible foreground colors.</summary>
-enum class ForegroundColor {
-    Black = 30,
-    Red = 31,
-    Green = 32,
-    Yellow = 33,
-    Cyan = 36,
-    BrightRed = 91,
-    BrightGreen = 92,
-    BrightYellow = 93,
-    BrightCyan = 96
-};
+    std::string ansiString = "Bob";
+    std::wstring unicodeString = L"Bob";
 
-//Function prototypes
-void DisplayError(std::string);
-
-void ResetTextColor()
-{
-    std::cout << "\033[0m";
+    //Variants - Unicode variants of fixed size
+    //char8_t char8Byte;
+    char16_t char16Byte;
+    char32_t char32Byte;
 }
 
-void SetTextColor(ForegroundColor color)
+void CharFunctionDemo()
 {
-    std::cout << "\033[" << (int)color << "m";
-}
-
-/// <summary>Display a confirmation message.</summary>
-/// <param name="message">Message to show.</param>
-/// <returns>Returns true or false depending on whether confirmed or not.</returns>
-bool Confirm(std::string message)
-{
-    std::cout << message << " (Y/N) ";
     std::string input;
-    std::cin >> input;
 
-    while (true)
-    {
-        if (_strcmpi(input.c_str(), "Y") == 0)
-            return true;
-        else if (_strcmpi(input.c_str(), "N") == 0)
-            return false;
-        else {
-            DisplayError("You must enter either Y or N");
-
-            std::cin >> input;
-        }
-    }
-}
-
-/// <summary>Displays an error message.</summary>
-/// <param name="message">Message to display.</param>
-void DisplayError(std::string message)
-{
-    //std::cout << "\033[91m" 
-    SetTextColor(ForegroundColor::BrightRed);
-    std::cout << "ERROR: " << message << std::endl;
-    ResetTextColor();
-}
-
-/// <summary>Displays a warning message.</summary>
-/// <param name="message">Message to display.</param>
-void DisplayWarning(std::string message)
-{
-    SetTextColor(ForegroundColor::BrightYellow);
-    std::cout << message << std::endl;
-    ResetTextColor();
-}
-
-int ReadInt(int minimumValue, int maximumValue)
-{
-    do
-    {
-        int value;
-        std::cin >> value;
-
-        if (value >= minimumValue && value <= maximumValue)
-            return value;
-
-        DisplayError("Value is outside range");
-    } while (true);
-}
-
-int ReadInt(int minimumValue)
-{
-    return ReadInt(minimumValue, INT_MAX);
-}
-
-std::string ReadString(std::string message, bool isRequired)
-{
-    std::cout << message;
-
-    std::string input;
+    std::cout << "Enter a string: ";
     std::getline(std::cin, input);
 
-    while (isRequired && input == "")
+    std::cout << "Character "
+        << std::setw(15) << "Letter? "
+        << std::setw(10) << "Digit? "
+        << std::setw(10) << "Letter/Digit? "
+        << std::setw(10) << "Lowercase? "
+        << std::setw(10) << "To Lower "
+        << std::setw(10) << "Uppercase? "
+        << std::setw(10) << "To Upper "
+        << std::setw(10) << "Space? " << std::endl;
+    std::cout << "----------------------------------------" << std::endl;
+
+    //Enumerate the characters of the string
+    for (int index = 0; index < input.length(); ++index)
     {
-        DisplayError("Value is required");
+        char ch = input[index];
 
-        std::getline(std::cin, input);
-    }
-
-    return input;
-}
-
-int AddToMovieArray(Movie movies[], int size, Movie movie)
-{
-    //Enumerate the array looking for the first blank movie
-    for (int index = 0; index < size; ++index)
-    {
-        if (movies[index].title == "")
-        {
-            //Set the array element
-            movies[index] = movie;
-            return index;
-        }
-    }
-
-    DisplayError("No space available for new movie");
-    return -1;
-}
-
-/// <summary>View details of a movie.</summary>
-/// <remarks>
-/// More details including paragraphs of data if you want.
-/// </remarks>
-void ViewMovie(Movie movie)
-{
-    if (movie.title == "")
-    {
-        DisplayWarning("No movies exist");
-        return;
-    }
-
-    // View movie
-    //    Title (Year)
-    //    Run Length # min
-    //    User Rating = ##
-    //    Is Classic? 
-    //    [Description]
-    std::cout << std::fixed << std::setprecision(1) << std::endl;
-    std::cout << movie.title << " (" << movie.releaseYear << ")" << std::endl;
-    std::cout << "Run Length " << movie.runLength << " mins" << std::endl;
-    std::cout << "Genres " << movie.genres << std::endl;
-    std::cout << "Is Classic? " << (movie.isClassic ? "Yes" : "No") << std::endl;
-    if (movie.description != "")
-        std::cout << movie.description << std::endl;
-    std::cout << std::endl;
-}
-
-void ViewMovies(Movie movies[], int size)
-{
-    //Enumerate movies until we run out
-    //for (Movie movie: movies)
-    for (int index = 0; index < size; ++index)
-    {
-        if (movies[index].title == "")
-            return;
-
-        ViewMovie(movies[index]);
+        // All char functions are from C and therefore accept and return an int, not a char
+        // Typecast back to char
+        std::cout << ch
+            << std::setw(15) << isalpha(ch)
+            << std::setw(10) << isdigit(ch)
+            << std::setw(10) << isalnum(ch)
+            << std::setw(10) << islower(ch)
+            << std::setw(10) << (char)tolower(ch)
+            << std::setw(10) << isupper(ch)
+            << std::setw(10) << (char)toupper(ch)
+            << std::setw(10) << isspace(ch)
+            << std::endl;
     };
 }
 
-/// <summary>Prompt user and add movie details.</summary>
-Movie AddMovie()
+void UnicodeCharFunctionDemo()
 {
-    Movie movie;// = {0};
+    std::wstring input;
 
-    //Get movie details
-    movie.title = ReadString("Enter movie title: ", true);
+    std::cout << "Enter a string: ";
+    std::getline(std::wcin, input);
 
-    std::cout << "Enter the run length (in minutes): ";
-    movie.runLength = ReadInt(0);
+    std::cout << "Character "
+        << std::setw(15) << "Letter? "
+        << std::setw(10) << "Digit? "
+        << std::setw(10) << "Letter/Digit? "
+        << std::setw(10) << "Lowercase? "
+        << std::setw(10) << "To Lower "
+        << std::setw(10) << "Uppercase? "
+        << std::setw(10) << "To Upper "
+        << std::setw(10) << "Space? " << std::endl;
+    std::cout << "----------------------------------------" << std::endl;
 
-    std::cout << "Enter the release year (1900-2100): ";
-    std::cin >> movie.releaseYear;
-    movie.releaseYear = ReadInt(1900, 2100);
-
-    movie.description = ReadString("Enter the optional description: ", false);
-
-    // Genres, up to 5
-    for (int index = 0; index < 5; ++index)
+    //Enumerate the characters of the string
+    for (int index = 0; index < input.length(); ++index)
     {
-        std::string genre = ReadString("Enter the genre (or blank to continue): ", false);
-        if (genre == "")
-            break;
-        else if (genre == " ")
-            continue;
+        wchar_t ch = input[index];
 
-        movie.genres = movie.genres + ", " + genre;
-    }
-
-    movie.isClassic = Confirm("Is this a classic movie?");
-
-    return movie;
+        // All char functions are from C and therefore accept and return an int, not a char
+        // Typecast back to char
+        std::cout << ch
+            << std::setw(15) << iswalpha(ch)
+            << std::setw(10) << iswdigit(ch)
+            << std::setw(10) << iswalnum(ch)
+            << std::setw(10) << iswlower(ch)
+            << std::setw(10) << (char)towlower(ch)
+            << std::setw(10) << iswupper(ch)
+            << std::setw(10) << (char)towupper(ch)
+            << std::setw(10) << iswspace(ch)
+            << std::endl;
+    };
 }
 
-void DeleteMovie()
+void CStringDemo()
 {
-    Movie movie;
-    if (!Confirm("Are you sure you want to delete " + movie.title + "?"))
-        return;
+    //Implicit sizing makes sense here
+    char title[] = "My Program";
+    char title2[] = {'M', 'y', ' '};
 
-    //TODO: Delete movie
-    movie.title = "";
+    //Normally use char* for C strings
+    // or char const* for C strings that are const
 }
 
-void EditMovie()
+void CStringFunctions()
 {
-    DisplayWarning("Not implemented yet");
+    //Always init C strings to null
+    const int MaxInputSize = 100;
+    char input[MaxInputSize + 1] = {0};
+    char output[MaxInputSize + 1] = {0};
+
+    std::cout << "Input a value: ";
+    std::cin >> input;
+
+    //Common C string functions - #include <cstring>
+    int len = strlen(input);  //strlen(string) size_t :: returns size of string
+
+    // copying a string
+    //strcpy(output, input); // strcpy copies source to target
+                           // if output is not large enough, buffer overflow occurs and null will not terminate
+                           // if output is smaller than input then it overwrites memory - dangerous!
+    //strncpy(output, input, MaxInputSize); // safer version - specify max size to copy
+
+    //strcat(output, "done"); // concatenates string to end of the first string
+    // appends input to output
+
+    strcmp(output, input); // compares two strings - returns 0 if equal, <0 if output < input, >0 if output > input
+    _stricmp(output, input); // case insensitive version
+    strncmp(output, input, MaxInputSize); // safer version - specify max size to compare
+
+    char* pos = strstr(input, "a"); // returns pointer to first occurrence of substring in string, or nullptr if not found
+
+    // conversions
+
+    int value = atoi("123"); // convert string to int
+
+
+
 }
 
-void PointerDemo()
+
+void CPlusPlusStringFunctions()
 {
-    // Pointer to an int,
-    int localInt = 9867;
-    
-    
-    int* pInt;
-    pInt = &localInt;
+    std::string input;
+    std::string output;
+    std::cout << "Input a value: ";
+    std::cin >> input;
 
-    *pInt = 5678;
+    output = input; // assignment operator copies string
+    output += " done"; // concatenation operator appends to string
 
-    float * pFloat = nullptr; 
-    // always make sure pointers are valid before dereferencing them
-   // if (pFloat != nullptr) {
-     //   *pFloat = 123.45;
-    //}
+    //compare
 
-    if (pFloat){
-        *pFloat = 123.45;
-    }
+    bool isEqual = input == output; // equality operator
 
-    float localFloat = 123.45;
+    int len = input.length(); // length method
+    bool isEmpty = input == ""; // check for empty string
+    isEmpty = input.empty(); // empty method (better)
 
-    pFloat = &localFloat;
+    // resetting a string 
+    output = ""; // assignment to empty string
+    output.clear(); // clear method clears a string 
 
+    // Modifying strings
+    output.append(" done"); // append method
+    output.insert(0, "Start: "); // insert method
 
-    float someFloats[10] = {0};
-    pFloat = &someFloats[1]; //Ptr references second element
+    //finding strings
+    input.find("a"); // find method - returns index of first occurrence or string::npos if not found
 
-    //pointer assignemtn must exactly match type
-
-    //dynamic memory 
-   pFloat = new float; //allocates memory on the heap
-   *pFloat = 89.76;
-
-   for (int index = 0; index < 10000; ++index)
-   {
-       pFloat = new float;
-       *pFloat = index;
-   }
-
-
+    const char* ptr = input.c_str(); // c_str method - returns C string version of string
 }
-
 int main()
 {
-
-    PointerDemo();
-    //Cannot calculate the size of an array at runtime so use a const int variable
-    const int MaximumMovies = 100;
-    Movie movies[MaximumMovies];
-
-    //Display main menu
-    bool done = false;
-    do
-    {
-        std::cout << "Movie Library" << std::endl;
-        std::cout << "--------------" << std::endl;
-        std::cout << "A)dd Movie" << std::endl;
-        std::cout << "V)iew Movies" << std::endl;
-        std::cout << "E)dit Movie" << std::endl;
-        std::cout << "D)elete Movie" << std::endl;
-        std::cout << "Q)uit" << std::endl;
-
-        char choice;
-        std::cin >> choice;
-
-        switch (choice)
-        {
-            case 'A':
-            case 'a': AddToMovieArray(movies, MaximumMovies, AddMovie()); break;
-
-            case 'V':
-            case 'v': ViewMovies(movies, MaximumMovies); break;
-
-            case 'D':
-            case 'd': DeleteMovie(); break;
-
-            case 'E':
-            case 'e': EditMovie(); break;
-
-            case 'Q':
-            case 'q': done = true;
-
-            default: DisplayError("Invalid choice"); break;
-        };
-    } while (!done);
+    CharFunctionDemo();
 }

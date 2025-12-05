@@ -339,9 +339,40 @@ void ArrayDemo()
 }
 #pragma endregion
 
+void SaveMovie(std::ofstream file, Movie* pMovie)
+{
+    if (!pMovie)
+        return;
+
+    file << pMovie->title << ", " << std::endl;
+    file << pMovie->description << ", " << std::endl;
+    file << pMovie->runLength <<", " << std::endl;
+    file << pMovie->releaseYear << ", "<<std::endl;
+    file << (pMovie->isClassic ? 1 : 0) << ", "<<std::endl;
+    file << pMovie->genres << ", "<<std::endl;
+    file << pMovie->description << std::endl;
+
+}
+
+void SaveMovies(const char* filename, Movie* movies[], int size)
+{
+    std::ofstream file;
+    file.open(filename, std::ios::out | std::ios:;trunc );
+
+    if (file.fail())
+    {
+        DisplayError("Failed to save movies");
+        return;
+    };
+
+    //file << "writing to file" << std::endl;
+    for (int index = 0; index < size; ++index)
+        SaveMovie(file, movies[index]);
+    //app | ate | trunc
+}
 int main()
 {
-
+    const char* filename = "movies.csv";
 
     // sixe is required at declaration for arrays and the size must be greater than 0 and it must be a constant integer expression must be a constant
     //Leaving this here to not break anything in the code
